@@ -6,11 +6,14 @@ int main(int ac, char **av)
   char *line = NULL;
   size_t len = 0;
   ssize_t read;
+  char *args[MAX_ARGS];
+  char *path[MAX_ARGS];
   pid_t pid;
   char *executable_path;
 
   
   (void)ac;
+  (void)av;
 
   while(1)
     {
