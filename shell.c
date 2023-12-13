@@ -1,49 +1,44 @@
 #include "shell.h"
 
+int main() {
+    char command[BUFSIZE];
+    pid_t pid;
 
-int main(int ac, char **av, char **envp)
-{
-  char *line = NULL;
-  size_t len = 0;
-  ssize_t read;
-  char *args[MAX_ARGS];
-  char *path[MAX_ARGS];
-  pid_t pid;
-  char *executable_path;
+    while (1) {
+        display_prompt();
 
-  
-  (void)ac;
-  (void)av;
+        if (fgets(command, BUFSIZE, stdin) == NULL) {
+            printf("\n");
+            break;
+        }
 
-  while(1)
-    {
-      printf("$");
+        command[strcspn(command, "\n")] = '\0';
 
-      read = getline(&line, &len, stdin);
-      if (read == -1)
-	break;
+        pid = fork();
 
-      
-      executable_path = find_path(args[0], path);
-      if (executable_path != NULL)
-	{
-	  pid = fork();
+        if (pid == -1) {
+            perror("fork");
+            exit(EXIT_FAILURE);
+        }
 
-	  if (pid < 0)
-	    {
-	      perror("Process execution failed");
-	      continue;
-	    }
+        if (pid == 0) {
+            if (execlp(command, command, (char *)NULL) == -1) {
+                perror("exec");
+                exit(EXIT_FAILURE);
+            }
+        } else {
+            int status;
+            waitpid(pid, &status, 0);
 
-	  else if (pid == 0)
-	    {
-	      execve(executable_path, args, envp);
-	      perror("./shell");
-	      _exit(EXIT_FAILURE);
-	    }
-	  wait(NULL);
-	}
+            if (WIFEXITED(status)) {
+                if (WEXITSTATUS(status) != 0) {
+                    fprintf(stderr, "./shell: %s: command not found\n", command);
+                }
+            } else {
+                fprintf(stderr, "./shell: %s: command not found\n", command);
+            }
+        }
     }
-  free(line);
-  return (0);
+
+    return 0;
 }

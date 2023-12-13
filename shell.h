@@ -7,9 +7,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <sys/types.h>
+
+
 #define BUFSIZE 1024
 #define MAX_ARGS 11
 
 char *find_path(char *command, char *path[]);
+void display_prompt();
 
 #endif
