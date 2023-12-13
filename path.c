@@ -24,6 +24,6 @@ char *find_path(char *command, char *path[])
 }
 
 void display_prompt() {
-    printf("#cisfun$ ");
+    printf(" ");
     fflush(stdout);
 }

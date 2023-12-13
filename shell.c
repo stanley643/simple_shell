@@ -23,7 +23,6 @@ int main() {
 
         if (pid == 0) {
             if (execlp(command, command, (char *)NULL) == -1) {
-                perror("exec");
                 exit(EXIT_FAILURE);
             }
         } else {
