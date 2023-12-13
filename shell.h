@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <sys/wait.h>
 #define BUFSIZE 1024
 #define MAX_ARGS 11
 

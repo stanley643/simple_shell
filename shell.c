@@ -1,7 +1,7 @@
 #include "shell.h"
 
 
-int main(int ac, char **av)
+int main(int ac, char **av, char **envp)
 {
   char *line = NULL;
   size_t len = 0;
