@@ -11,11 +11,12 @@ char *find_the_path(char *command, char *path[])
 {
     char exec_path[BUFSIZE];
     struct stat file_stat;
+    int i;
 
     if (stat(command, &file_stat) == 0 && file_stat.st_mode & S_IXUSR)
         return (command);
 
-    for (int i = 0; path[i] != NULL; i++)
+    for (i = 0; path[i] != NULL; i++)
     {
         snprintf(exec_path, sizeof(exec_path), "%s/%s", path[i], command);
         if (stat(exec_path, &file_stat) == 0 && file_stat.st_mode & S_IXUSR)
