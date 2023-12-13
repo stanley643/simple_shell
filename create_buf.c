@@ -6,7 +6,7 @@
  * @buf: parameter
  * Return:  99
  */
-char *create_buf(char *new_buf)
+char *create_buffer(char *new_buf)
 {
     new_buf = malloc(sizeof(char) * BUFSIZE);
 
