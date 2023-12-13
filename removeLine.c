@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * remove_newline - removes newline from the buffer
