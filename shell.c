@@ -51,7 +51,7 @@ int main(int argc, char **argv, char **envp)
         if (strcmp(arguments[0], environment) == 0)
             print_env(envp);
 
-        executable_path = find_the_path(arguments[0], search_paths);
+        executable_path = find_path(arguments[0], search_paths);
         if (executable_path != NULL)
         {
             child_pid = fork();
