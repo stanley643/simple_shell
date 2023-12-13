@@ -8,9 +8,11 @@
 
 int main(int ac, char **av)
 {
-char *line = NULL;
+	char input[BUFSIZE];
+	char *line = NULL;
     size_t len = 0;
     ssize_t nread;
+    pid_t pid;
 
     (void)ac;
     (void)av;
@@ -21,11 +23,30 @@ char *line = NULL;
         nread = getline(&line, &len, stdin);
 
         if (nread == -1) {
-            printf("\nEnd of input. Exiting.\n");
+            printf("\n");
             break;
         }
 
-        printf("%s", line);
+        input[strcspn(input, "\n")] = '\0';
+	
+	pid = fork();
+
+	if (pid == -1)
+	{
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		if (execlp(input, input, NULL) == -1)
+		{
+			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			int status;
+			waitpid(pid, &status, 0);
+		}
+	}
     }
 
     free(line);
