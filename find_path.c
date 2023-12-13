@@ -7,7 +7,7 @@
  * @path: pointers to the desired executable file
  * Return: NULL 
  */
-char *find_the_path(char *command, char *path[])
+char *find_path(char *command, char *path[])
 {
     char exec_path[BUFSIZE];
     struct stat file_stat;
@@ -32,7 +32,7 @@ char *find_the_path(char *command, char *path[])
  * @path: the path
  * Return: nothing
  */
-void initialize_path(char *path_var, char **path)
+void init_path(char *path_var, char **path)
 {
     size_t i = 0;
     char *token;
